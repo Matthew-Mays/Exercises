@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "jest": "^29.3.1"
+  },
+  "name": "test",
+  "version": "1.0.0",
+  "main": "preflight.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
