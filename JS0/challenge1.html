@@ -1,0 +1,12 @@
+<h1>Is input divisible by 2</h1>
+<input type="number" class="input1" />
+<button type="submit" class="submit1">Submit</button>
+<script>
+  const input1 = document.querySelector(".input1");
+  const submit1 = document.querySelector(".submit1");
+  submit1.onclick = () => {
+    if (input1.value % 2 === 0) {
+      input1.value = 0;
+    }
+  };
+</script>

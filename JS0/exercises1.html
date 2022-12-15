@@ -1,0 +1,20 @@
+<input type="number" class="in1" />
+<input type="number" class="in2" />
+<button class="gen">Generate</button>
+<button type="submit" class="submit1">Submit</button>
+<script>
+  const in1 = document.querySelector(".in1");
+  const in2 = document.querySelector(".in2");
+  const sub = document.querySelector(".submit1");
+  const gen = document.querySelector(".gen");
+  let func = () => {};
+  gen.onclick = () => {
+    const val1 = +in1.value;
+    const val2 = +in2.value;
+  };
+  sub.onclick = () => {
+    const val1 = +in1.value;
+    const val2 = +in2.value;
+    alert(val1 + val2 > 10);
+  };
+</script>
