@@ -1,0 +1,116 @@
+<!-- <h1 class="change">Change Me</h1>
+<input type="text" class="box" />
+<button class="submit">Change</button>
+<script>
+  const change = document.querySelector(".change");
+  const submit = document.querySelector(".submit");
+  const text = document.querySelector(".box");
+  const setText = () => {
+    const newText = text.value;
+    change.innerText = newText;
+  };
+  submit.onclick = setText;
+</script> -->
+
+<!-- <div class="show"></div>
+<script>
+  const show = document.querySelector(".show");
+
+  const showApp = () => {
+    show.innerHTML = `
+    <button class="start">Start</button>
+    `;
+    const start = document.querySelector(".start");
+    start.onclick = () => {
+      show.innerHTML = `
+        <input type="text" />
+        <button class="cancel">Cancel</button>
+        `;
+      const cancel = document.querySelector(".cancel");
+      cancel.onclick = showApp;
+    };
+  };
+  showApp();
+</script> -->
+
+<!-- <div class="container"></div>
+<h1 class="text"></h1>
+<script>
+  const text = document.querySelector(".text");
+  const container = document.querySelector(".container");
+
+  const solution = (num) => {
+    return (newNum) => {
+      return num + newNum;
+    };
+  };
+
+  const startApp = () => {
+    text.innerText = "";
+    container.innerHTML = `
+        <input type="number" class="input" />
+        <button class="start">Start</button>
+        `;
+    const start = document.querySelector(".start");
+    const input = document.querySelector(".input");
+
+    start.onclick = () => {
+      const val = +input.value;
+      const addSecond = solution(val);
+      text.innerText = `${val} + `;
+      container.innerHTML = `
+            <input type="number" class="input" />
+            <button class="add">Add</button>
+            <button class="cancel">Clear</button>
+            `;
+      const add = document.querySelector(".add");
+      add.onclick = () => {
+        const secondInput = document.querySelector(".input");
+        const secondVal = +secondInput.value;
+        const result = addSecond(secondVal);
+        text.innerText = `${val} + ${secondVal} = ${result}`;
+        secondInput.value = "";
+      };
+
+      const cancel = document.querySelector(".cancel");
+      cancel.onclick = startApp;
+    };
+  };
+  startApp();
+</script> -->
+
+<div class="container"></div>
+<h1 class="hello"></h1>
+<script>
+  const container = document.querySelector(".container");
+  const helloBox = document.querySelector(".hello");
+
+  const solution = (inp, hellos = "") => {
+    if (inp >= 1) {
+      hellos += "Hello ";
+      return solution(inp - 1, hellos);
+    }
+    return hellos;
+  };
+
+  const startApp = () => {
+    helloBox.innerText = "";
+    container.innerHTML = `
+        <input type="number" class="input" />
+        <button class="start">Start</button>
+        `;
+    const start = document.querySelector(".start");
+    const input = document.querySelector(".input");
+
+    start.onclick = () => {
+      const val = +input.value;
+      helloBox.innerText = solution(val);
+      container.innerHTML = `
+        <button class="reset">Reset</button>
+        `;
+      const reset = document.querySelector(".reset");
+      reset.onclick = startApp;
+    };
+  };
+  startApp();
+</script>
