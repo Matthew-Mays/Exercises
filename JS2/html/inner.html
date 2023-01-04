@@ -183,7 +183,7 @@
 </script> -->
 
 <!-- Example #7-2 -->
-<input type="text" class="input" />
+<!-- <input type="text" class="input" />
 <button class="start">Start</button>
 <h1 class="text"></h1>
 <div class="past_text"></div>
@@ -196,7 +196,7 @@
 
   const delay = (str, count = 0, delayedStr = "") => {
     if (str.length === count) {
-      past_text.innerHTML = `${past_text.innerHTML} <h1>${str}</h1>`;
+      past_text.innerHTML = `<h1>${str}</h1> ${past_text.innerHTML}`;
       text.innerText = "";
       return;
     } else {
@@ -211,5 +211,68 @@
   start.onclick = () => {
     delay(input.value);
     input.value = "";
+  };
+</script> -->
+
+<!-- Example #8 -->
+<h1 class="watch">0.00</h1>
+<div class="container">
+  <button class="start">Start</button>
+</div>
+
+<script>
+  const watch = document.querySelector(".watch");
+  const start = document.querySelector(".start");
+  const container = document.querySelector(".container");
+  let timeval = 0;
+  let isRunning = false;
+
+  const display = (num) => {
+    const seconds = Math.floor(num / 1000);
+    const mili = num % 1000;
+    if (num < 10000) return `0${seconds}:${mili}`;
+    return `${seconds}:${mili}`;
+  };
+
+  const setTimer = () => {
+    setTimeout(() => {
+      timeval += 10;
+      watch.innerText = display(timeval);
+      if (isRunning) return setTimer();
+      return;
+    }, 10);
+  };
+
+  start.onclick = () => {
+    if (isRunning) return;
+    isRunning = true;
+    setTimer();
+    container.innerHTML = `
+    <button class='start' disabled>Start</button>
+    <button class='pause'>Pause</button>
+    <button class='reset'>Reset</reset>
+    `;
+
+    const pause = document.querySelector(".pause");
+    const reset = document.querySelector(".reset");
+
+    pause.onclick = () => {
+      if (isRunning) {
+        isRunning = false;
+        pause.innerText = "Unpause";
+      } else {
+        isRunning = true;
+        setTimer();
+      }
+    };
+
+    reset.onclick = () => {
+      timeval = 0;
+      isRunning = false;
+      watch.innerText = "00:00";
+      container.innerHTML = `
+      <button class="start">Start</button>
+      `;
+    };
   };
 </script>
