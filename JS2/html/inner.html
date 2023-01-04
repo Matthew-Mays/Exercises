@@ -1,3 +1,4 @@
+<!-- Example #1 -->
 <!-- <h1 class="change">Change Me</h1>
 <input type="text" class="box" />
 <button class="submit">Change</button>
@@ -12,6 +13,7 @@
   submit.onclick = setText;
 </script> -->
 
+<!-- Example #2 -->
 <!-- <div class="show"></div>
 <script>
   const show = document.querySelector(".show");
@@ -33,6 +35,7 @@
   showApp();
 </script> -->
 
+<!-- Example #3 -->
 <!-- <div class="container"></div>
 <h1 class="text"></h1>
 <script>
@@ -79,32 +82,82 @@
   startApp();
 </script> -->
 
-<div class="container"></div>
+<!-- Example #4 -->
+<!-- <input type="number" class="input" />
+<button class="start">Start</button>
 <h1 class="hello"></h1>
+
 <script>
-  const container = document.querySelector(".container");
+  const input = document.querySelector(".input");
+  const start = document.querySelector(".start");
   const helloBox = document.querySelector(".hello");
 
   const solution = (inp, hellos = "") => {
-    if (inp >= 1) {
-      hellos += "Hello ";
-      return solution(inp - 1, hellos);
+    if (inp <= 0) return hellos;
+    return solution(inp - 1, hellos + "Hello ");
+  };
+
+  start.onclick = () => {
+    const result = solution(+input.value);
+    helloBox.innerText = result;
+  };
+</script> -->
+
+<!-- Example #5 -->
+<!-- <input class="input" />
+<button class="start">Start</button>
+<div class="textContainer"></div>
+<script>
+  const input = document.querySelector(".input");
+  const start = document.querySelector(".start");
+  const textBox = document.querySelector(".textContainer");
+
+  const solution = (str, count = 0, newStr = "") => {
+    if (str.length <= count) return newStr;
+    newStr += `<h1>${str[count]}</h1>`;
+    return solution(str, count + 1, newStr);
+  };
+
+  start.onclick = () => {
+    textBox.innerHTML = solution(input.value);
+    input.value = "";
+  };
+</script> -->
+
+<!-- Example #6-->
+<!-- <div class="container"></div>
+<h1 class="text"></h1>
+<script>
+  const container = document.querySelector(".container");
+  const text = document.querySelector(".text");
+
+  const isPrime = (num, i = 2) => {
+    if (num <= i && num > 1) return true;
+    if (num % i === 0 || num <= 1) return false;
+    return isPrime(num, i + 1);
+  };
+
+  const printAllPrimes = (inp, count = 2, primeList = "") => {
+    if (inp <= count) {
+      return primeList.substring(0, primeList.length - 2);
+    } else if (isPrime(count)) {
+      primeList += `${count}, `;
     }
-    return hellos;
+    return printAllPrimes(inp, count + 1, primeList);
   };
 
   const startApp = () => {
-    helloBox.innerText = "";
+    text.innerText = "";
     container.innerHTML = `
         <input type="number" class="input" />
         <button class="start">Start</button>
         `;
-    const start = document.querySelector(".start");
     const input = document.querySelector(".input");
+    const start = document.querySelector(".start");
 
     start.onclick = () => {
       const val = +input.value;
-      helloBox.innerText = solution(val);
+      text.innerText = printAllPrimes(val);
       container.innerHTML = `
         <button class="reset">Reset</button>
         `;
@@ -113,4 +166,92 @@
     };
   };
   startApp();
-</script>
+</script> -->
+
+<!-- Example #7 -->
+<!-- <div class="container"></div>
+<h1 class="text"></h1>
+<script>
+  const container = document.querySelector(".container");
+  const text = document.querySelector(".text");
+
+  const delay = (str, count = 0, delayedStr = "") => {
+    if (str.length <= count) {
+      text.innerText = delayedStr;
+    } else {
+      delayedStr += str[count];
+      setTimeout(() => {
+        text.innerText = delayedStr;
+        return delay(str, count + 1, delayedStr);
+      }, 200);
+    }
+  };
+
+  const startApp = () => {
+    text.innerText = "";
+    container.innerHTML = `
+        <input type="text" class="input" />
+        <button class="start">Start</button>
+        `;
+    const input = document.querySelector(".input");
+    const start = document.querySelector(".start");
+
+    start.onclick = () => {
+      const val = input.value;
+      delay(val);
+      container.innerHTML = `
+        <button class="reset">Reset</button>
+        `;
+      const reset = document.querySelector(".reset");
+      reset.onclick = startApp;
+    };
+  };
+  startApp();
+</script> -->
+
+<!-- Example #7-2 -->
+<!-- <div class="container"></div>
+<div class="past_text"></div>
+<h1 class="text"></h1>
+<script>
+  const container = document.querySelector(".container");
+  const text = document.querySelector(".text");
+  const past_text = document.querySelector(".past_text");
+
+  const delay = (str, count = 0, delayedStr = "") => {
+    if (str.length === count) {
+      past_text.innerHTML = `${past_text.innerHTML} <h1>${str}</h1>`;
+      text.innerHTML = "";
+      return;
+    } else {
+      delayedStr += str[count];
+      setTimeout(() => {
+        text.innerText = delayedStr;
+        return delay(str, count + 1, delayedStr);
+      }, 200);
+    }
+  };
+
+  const startApp = () => {
+    text.innerText = "";
+    past_text.innerHTML = "";
+    container.innerHTML = `
+        <input type="text" class="input" />
+        <button class="start">Start</button>
+        `;
+    const input = document.querySelector(".input");
+    const start = document.querySelector(".start");
+
+    start.onclick = () => {
+      const val = input.value;
+      input.value = "";
+      delay(val);
+      container.innerHTML += `
+        <button class="reset">Reset</button>
+        `;
+      const reset = document.querySelector(".reset");
+      reset.onclick = startApp;
+    };
+  };
+  startApp();
+</script> -->
