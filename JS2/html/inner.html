@@ -216,63 +216,66 @@
 
 <!-- Example #8 -->
 <h1 class="watch">0.00</h1>
-<div class="container">
-  <button class="start">Start</button>
-</div>
+<button class="start">Start</button>
+<button class='pause'>Pause</button>
+<button class='stop'>Stop</reset>
 
 <script>
   const watch = document.querySelector(".watch");
   const start = document.querySelector(".start");
-  const container = document.querySelector(".container");
+  const pause = document.querySelector(".pause");
+  const stop = document.querySelector(".stop");
+
   let timeval = 0;
   let isRunning = false;
+  let isPaused = false;
 
-  const display = (num) => {
-    const seconds = Math.floor(num / 1000);
-    const mili = num % 1000;
-    if (num < 10000) return `0${seconds}:${mili}`;
-    return `${seconds}:${mili}`;
-  };
-
-  const setTimer = () => {
+  const runTimer = () => {
+    if(!isRunning || isPaused) return;
+    if(isRunning || isPaused) {
+      start.disabled = true;
+    }
     setTimeout(() => {
-      timeval += 10;
-      watch.innerText = display(timeval);
-      if (isRunning) return setTimer();
-      return;
+      timeval += 1;
+      const seconds = Math.floor(timeval / 100);
+      const hunSeconds = timeval % 100;
+
+      let frontZeroSeconds = '';
+      if(seconds < 10) {
+        frontZeroSeconds = '0'
+      };
+
+      let frontZeroHunSeconds = ''
+      if(hunSeconds < 10) {
+        frontZeroHunSeconds = ' 0';
+      };
+
+      watch.innerText = `${frontZeroSeconds}${seconds}:${frontZeroHunSeconds}${hunSeconds}`;
+      runTimer();
     }, 10);
   };
 
   start.onclick = () => {
-    if (isRunning) return;
+    if (isPaused) return runTimer();
+    timeval = 0;
+    if(isRunning) return;
     isRunning = true;
-    setTimer();
-    container.innerHTML = `
-    <button class='start' disabled>Start</button>
-    <button class='pause'>Pause</button>
-    <button class='reset'>Reset</reset>
-    `;
-
-    const pause = document.querySelector(".pause");
-    const reset = document.querySelector(".reset");
-
-    pause.onclick = () => {
-      if (isRunning) {
-        isRunning = false;
-        pause.innerText = "Unpause";
-      } else {
-        isRunning = true;
-        setTimer();
-      }
-    };
-
-    reset.onclick = () => {
-      timeval = 0;
-      isRunning = false;
-      watch.innerText = "00:00";
-      container.innerHTML = `
-      <button class="start">Start</button>
-      `;
-    };
+    runTimer();
   };
+
+  pause.onclick = () => {
+      if (isPaused) {
+        isPaused = false;
+        pause.innerText = "Pause";
+        runTimer();
+        return;
+      }
+      isPaused = true;
+      pause.innerText = 'Unpause'
+  };
+
+  stop.onclick = () => {
+    isRunning = false;
+    start.disabled = false;
+    };
 </script>
